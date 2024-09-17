@@ -4,7 +4,7 @@ const API_URL = '/api/document';
 
 export const getAllDocument = async (): Promise<Document[]> => {
   try {
-    const response = await fetch(`${API_URL}/get-all`, {
+    const response = await fetch(`${API_URL}`, {
       method: 'GET',
     });
 
@@ -18,7 +18,21 @@ export const getAllDocument = async (): Promise<Document[]> => {
 
 export const getApprovedDocument = async (): Promise<Document[]> => {
   try {
-    const response = await fetch(`${API_URL}/user/get-approved`, {
+    const response = await fetch(`${API_URL}/approved`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error('Error fetching docs:', error);
+    throw error;
+  }
+};
+
+export const getDocumentWithCategory = async (category: string): Promise<Document[]> => {
+  try {
+    const response = await fetch(`${API_URL}/category?category=${category}`, {
       method: 'GET',
     });
 
@@ -32,7 +46,7 @@ export const getApprovedDocument = async (): Promise<Document[]> => {
 
 export const getUploadedDocument = async (firebase_uid: string): Promise<Document[]> => {
   try {
-    const response = await fetch(`${API_URL}/user/get-uploaded?firebase_uid=${firebase_uid}`, {
+    const response = await fetch(`${API_URL}/uploaded?firebase_uid=${firebase_uid}`, {
       method: 'GET',
     });
 
@@ -60,57 +74,17 @@ export const uploadDocument = async (documentData: Document) => {
   return response.json();
 };
 
-export const addTag = async (tagName: string): Promise<Document> => {
+export const downloadDocument = async (documentId: string) => {
   try {
-    const response = await fetch(`${API_URL}/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name: tagName }),
-    });
-
+    const response = await fetch(`/api/document/download?documentId=${documentId}`);
     const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error('Error adding tag:', error);
-    throw error;
-  }
-};
 
-export const updateTag = async (tagId: string, tagName: string): Promise<Tag> => {
-  try {
-    const response = await fetch(`${API_URL}/update`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: tagId, name: tagName }),
-    });
-
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error('Error updating tag:', error);
-    throw error;
-  }
-};
-
-export const deleteTag = async (tagId: string): Promise<void> => {
-  try {
-    const response = await fetch(`${API_URL}/delete`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: tagId }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to delete tag');
+    if (response.ok) {
+      window.location.href = data.downloadUrl;
+    } else {
+      throw new Error('Tải tài liệu thất bại');
     }
   } catch (error) {
-    console.error('Error deleting tag:', error);
-    throw error;
+    throw new Error('Lỗi hệ thống khi tải tài liệu.');
   }
 };

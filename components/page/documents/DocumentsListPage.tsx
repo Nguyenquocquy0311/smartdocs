@@ -4,15 +4,13 @@ import DocumentsList from "@/components/composite/document/DocumentsList";
 import Header from "@/components/composite/header/Header";
 import { routes } from "@/constant/routes";
 import { Breadcrumb, message } from "antd";
-import { FileTextOutlined, HomeOutlined, LikeOutlined } from "@ant-design/icons";
-import { getApprovedDocument, getUploadedDocument } from "@/services/editorDocument";
+import { FileTextOutlined, HomeOutlined } from "@ant-design/icons";
+import { getApprovedDocument } from "@/services/editorDocument";
 import { Document } from "@/types/Document";
-import Auth from '@/context/AuthContext';
 
 export default function DocumentsListPage() {
-  const [documentsData, setDocumentsData] = useState<Document[]>([]); // State để lưu dữ liệu tài liệu
+  const [documentsData, setDocumentsData] = useState<Document[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { userInfo } = Auth.useContainer()
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -54,7 +52,6 @@ export default function DocumentsListPage() {
           },
         ]}
       />
-      {/* Truyền dữ liệu documentsData cho DocumentsList */}
       <DocumentsList documentsData={documentsData} />
       <Footer />
     </>

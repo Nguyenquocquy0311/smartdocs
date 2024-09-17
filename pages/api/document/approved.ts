@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   await dbConnect();
 
   try {
-    const docs = await Document.find({ approved: true }).select('title category tags description view createdAt downloadCount downloadPoints fileType');
+    const docs = await Document.find({ approved: true }).select('title category tags description views createdAt downloadCount downloadPoints fileType');
     // const docs = await Document.find()
     res.status(200).json({ message: 'Lấy dữ liệu thành công', data: docs });
   } catch (error) {

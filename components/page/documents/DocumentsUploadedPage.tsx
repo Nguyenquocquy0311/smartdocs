@@ -10,7 +10,7 @@ import { Document } from "@/types/Document";
 import Auth from '@/context/AuthContext';
 
 export default function DocumentsUploadedPage() {
-  const [documentsData, setDocumentsData] = useState<Document[]>([]); // State để lưu dữ liệu tài liệu
+  const [documentsData, setDocumentsData] = useState<Document[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { userInfo } = Auth.useContainer()
 
@@ -64,7 +64,6 @@ export default function DocumentsUploadedPage() {
           },
         ]}
       />
-      {/* Truyền dữ liệu documentsData cho DocumentsList */}
       <DocumentsList documentsData={documentsData} />
       <Footer />
     </>

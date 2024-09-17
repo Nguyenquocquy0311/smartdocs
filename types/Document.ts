@@ -9,7 +9,7 @@ export interface Document {
   likes: number;
   liked: boolean;
   createdAt: string;
-  view: number;
+  views: number;
   downloads: number;
   author: string;
   tags: string[];

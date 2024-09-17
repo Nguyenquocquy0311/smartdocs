@@ -6,7 +6,6 @@ import { useDocument } from '@/context/DocumentContext';
 import { routes } from '@/constant/routes';
 import { getAllTags } from '@/services/editorTag';
 import { getAllCategories } from '@/services/editorCategory';
-import { getApprovedDocument } from '@/services/editorDocument';
 import { Document } from '@/types/Document';
 
 const { Option } = Select;
@@ -35,7 +34,7 @@ const DocumentsList: React.FC<DocumentProps> = ({documentsData}) => {
     const fetchCategories = async () => {
       try {
         const allCategories = await getAllCategories();
-        setCategories(allCategories.map((tag: any) => tag.name));
+        setCategories(allCategories.map((tag: any) => tag.name).sort());
       } catch (error) {
         console.error('Failed to fetch categories', error);
       }
@@ -44,7 +43,7 @@ const DocumentsList: React.FC<DocumentProps> = ({documentsData}) => {
     const fetchTags = async () => {
       try {
         const allTags = await getAllTags();
-        setTags(allTags.map((tag: any) => tag.name));
+        setTags(allTags.map((tag: any) => tag.name).sort());
       } catch (error) {
         console.error('Failed to fetch tags', error);
       }
@@ -53,20 +52,6 @@ const DocumentsList: React.FC<DocumentProps> = ({documentsData}) => {
     fetchCategories();
     fetchTags();
   }, []);
-
-  // Fetch documents from API
-  // useEffect(() => {
-  //   const fetchDocuments = async () => {
-  //     try {
-  //       const documentsData = await getApprovedDocument(); 
-  //       setDocuments(documentsData);
-  //     } catch (error) {
-  //       message.error('Không thể lấy dữ liệu tài liệu');
-  //     }
-  //   };
-
-  //   fetchDocuments();
-  // }, []);
   
 
   const handleFilterChange = (value: string) => {
