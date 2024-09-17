@@ -53,15 +53,15 @@ const DocumentSchema: Schema = new Schema(
   }
 );
 
-DocumentSchema.pre('find', function (next) {
-  const oneWeekAgo = new Date();
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+// DocumentSchema.pre('find', function (next) {
+//   const oneWeekAgo = new Date();
+//   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-  this.updateMany(
-    { createdAt: { $lte: oneWeekAgo }, justPosted: true },
-    { $set: { justPosted: false } }
-  ).exec();
-  next();
-});
+//   this.updateMany(
+//     { createdAt: { $lte: oneWeekAgo }, justPosted: true },
+//     { $set: { justPosted: false } }
+//   ).exec();
+//   next();
+// });
 
 export default mongoose.models.Document || mongoose.model<IDocument>('Document', DocumentSchema);

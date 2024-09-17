@@ -3,10 +3,11 @@ import { Button, Form, Input, InputNumber, Upload, Select, notification } from '
 import { UploadOutlined } from '@ant-design/icons';
 import { UploadFile } from 'antd/lib/upload/interface';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from '@/lib/firebase'; // Đường dẫn tới file firebase.ts
+import { storage } from '@/lib/firebase';
 import Auth from '@/context/AuthContext';
 import { getAllTags } from '@/services/editorTag';
 import { getAllCategories } from '@/services/editorCategory';
+import { uploadDocument } from '@/services/editorDocument';
 
 const { Option } = Select;
 
@@ -76,28 +77,25 @@ const DocumentUploadForm: React.FC = () => {
     
     try {
       const fileUrl = await handleUploadToFirebase(fileList[0]);
+      const fileType = fileList[0].name.split('.').pop();
 
       const documentData = {
         ...values,
         fileUrl,
         author: userInfo?.uid,
+        fileType
       };
 
-      const response = await fetch('/api/document/upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(documentData),
-      });
+      console.log(documentData)
 
-      if (response.ok) {
+      await uploadDocument(documentData);
+
         notification.success({
           message: 'Tải lên tài liệu thành công!',
         });
-        form.resetFields(); // Làm mới form khi upload thành công
-        setFileList([]); // Reset lại danh sách file
-      }
+        form.resetFields();
+        setFileList([]); 
+
     } catch (error) {
       notification.error({
         message: 'Tải lên thất bại',

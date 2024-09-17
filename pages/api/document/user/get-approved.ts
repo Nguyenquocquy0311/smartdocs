@@ -7,7 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const docs = await Document.find({ approved: true }).select('title category tags description view createdAt downloadCount downloadPoints fileType');
-    res.status(200).json({ message: 'Lấy dữ liệu thành công', data: docs});
+    // const docs = await Document.find()
+    res.status(200).json({ message: 'Lấy dữ liệu thành công', data: docs });
   } catch (error) {
     res.status(500).json({ error: 'Failed to load categories' });
   }

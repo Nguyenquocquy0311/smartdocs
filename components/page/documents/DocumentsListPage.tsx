@@ -9,7 +9,7 @@ import { getApprovedDocument, getUploadedDocument } from "@/services/editorDocum
 import { Document } from "@/types/Document";
 import Auth from '@/context/AuthContext';
 
-export default function DocumentsPage() {
+export default function DocumentsListPage() {
   const [documentsData, setDocumentsData] = useState<Document[]>([]); // State để lưu dữ liệu tài liệu
   const [loading, setLoading] = useState<boolean>(true);
   const { userInfo } = Auth.useContainer()
@@ -17,11 +17,9 @@ export default function DocumentsPage() {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        if (userInfo) {
-          const documents = await getUploadedDocument(userInfo.uid);
-          setDocumentsData(documents);
-          setLoading(false);
-        } 
+        const documents = await getApprovedDocument();
+        setDocumentsData(documents);
+        setLoading(false);
       } catch (error) {
         message.error('Không thể lấy dữ liệu tài liệu');
         setLoading(false);

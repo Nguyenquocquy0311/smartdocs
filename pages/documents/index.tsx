@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import DocumentsPage from "@/components/page/documents/DocumentsListPage";
+import DocumentsListPage from "@/components/page/documents/DocumentsListPage";
 
 const Page = () => {
   return (
@@ -8,7 +8,7 @@ const Page = () => {
       title: 'SmartDocs | Danh sách tài liệu',
       description: 'Description',
      }}>
-      <DocumentsPage/>
+      <DocumentsListPage/>
     </Layout>
   )
 }

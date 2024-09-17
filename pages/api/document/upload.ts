@@ -4,8 +4,8 @@ import Document from '@/models/Document';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { title, description, category, fileUrl, source, downloadPoints, tags, author } = req.body;
-    
+    const { title, description, category, fileUrl, source, downloadPoints, tags, author, fileType } = req.body;
+
     try {
       await dbConnect();
 
@@ -23,10 +23,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         downloadPoints,
         tags,
         author,
+        fileType
       });
-      
+
       await newDocument.save();
-      
+
       res.status(200).json({ message: 'Tài liệu đã được tải lên và lưu vào db thành công', document: newDocument });
     } catch (e) {
       res.status(500).json({ message: 'Có lỗi xảy ra khi tải tài liệu lên', error: e });

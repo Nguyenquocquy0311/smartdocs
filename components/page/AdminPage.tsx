@@ -3,6 +3,7 @@ import HeaderAdmin from "../composite/header/HeaderAdmin";
 import Sidebar from "../composite/sidebar/Sidebar";
 import CategoryTab from "../composite/tabAdmin/CategoryTab";
 import TagTab from "../composite/tabAdmin/TagTab";
+import DocumentTab from "../composite/tabAdmin/DocumentTab";
 
 export default function AdminPage() {
   const { activeMenu } = useMenuContext();
@@ -13,7 +14,8 @@ export default function AdminPage() {
                 return <CategoryTab />;
             case 'tag':
                 return <TagTab />;
-            // Add cases for other menu items if needed
+            case 'doc':
+                return <DocumentTab />
             default:
                 return <h1>Hello World</h1>; // Default content or message
         }

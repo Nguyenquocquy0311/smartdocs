@@ -75,7 +75,7 @@ export default function Header() {
   }
 
   return (
-    <header className={classNames("fixed z-50 w-full h-16 bg-cover flex items-center justify-between px-10", isAtTop && router.pathname.includes(routes.home) ? "bg-hero" : "bg-white shadow-md")}>
+    <header className={classNames("fixed z-50 w-full h-16 bg-cover flex items-center justify-between px-10", isAtTop && router.pathname.includes(routes.home) ? "bg-header" : "bg-white shadow-md")}>
       <Logo />
 
       <div className="grid grid-flow-col items-center space-x-4">

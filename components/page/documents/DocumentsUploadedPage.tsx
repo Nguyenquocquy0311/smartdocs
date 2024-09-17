@@ -9,7 +9,7 @@ import { getApprovedDocument, getUploadedDocument } from "@/services/editorDocum
 import { Document } from "@/types/Document";
 import Auth from '@/context/AuthContext';
 
-export default function DocumentsPage() {
+export default function DocumentsUploadedPage() {
   const [documentsData, setDocumentsData] = useState<Document[]>([]); // State để lưu dữ liệu tài liệu
   const [loading, setLoading] = useState<boolean>(true);
   const { userInfo } = Auth.useContainer()
@@ -47,7 +47,7 @@ export default function DocumentsPage() {
             ),
           },
           {
-            href: routes.home,
+            href: routes.documents,
             title: (
               <>
                 <FileTextOutlined />

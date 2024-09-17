@@ -1,8 +1,24 @@
+import { Document } from "@/types/Document";
+
 const API_URL = '/api/document';
+
+export const getAllDocument = async (): Promise<Document[]> => {
+  try {
+    const response = await fetch(`${API_URL}/get-all`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error('Error fetching docs:', error);
+    throw error;
+  }
+};
 
 export const getApprovedDocument = async (): Promise<Document[]> => {
   try {
-    const response = await fetch(`${API_URL}/user/get-all`, {
+    const response = await fetch(`${API_URL}/user/get-approved`, {
       method: 'GET',
     });
 
@@ -26,6 +42,22 @@ export const getUploadedDocument = async (firebase_uid: string): Promise<Documen
     console.error('Error fetching docs:', error);
     throw error;
   }
+};
+
+export const uploadDocument = async (documentData: Document) => {
+  const response = await fetch(`${API_URL}/upload`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(documentData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to upload document data');
+  }
+
+  return response.json();
 };
 
 export const addTag = async (tagName: string): Promise<Document> => {

@@ -17,7 +17,7 @@ export default function Sidebar() {
         {
             icon: <SnippetsOutlined />,
             title: 'Tài liệu',
-            key: 'document'
+            key: 'doc'
         },
         {
             icon: <BarsOutlined />,
