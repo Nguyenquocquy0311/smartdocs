@@ -18,7 +18,7 @@ const DocumentUploadForm: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
 
   const { userInfo } = Auth.useContainer();
-  const [form] = Form.useForm(); // Tạo instance form
+  const [form] = Form.useForm();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -113,7 +113,7 @@ const DocumentUploadForm: React.FC = () => {
 
   return (
     <Form
-      form={form} // Kết nối form với instance đã tạo
+      form={form}
       name="upload-document"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 10 }}

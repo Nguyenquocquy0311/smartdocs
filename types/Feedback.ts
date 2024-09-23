@@ -5,4 +5,6 @@ export interface Feedback {
   rating: number;
   comment: string;
   feedback_date: Date;
+  authorName: string;
+  authorAva: string
 }

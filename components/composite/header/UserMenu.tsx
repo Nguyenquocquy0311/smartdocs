@@ -19,7 +19,7 @@ export default function UserMenu() {
                 <p>Điểm: 100</p>
             </div>
             <Menu.Divider />
-            <Menu.Item key="1" icon={<ProfileOutlined />}>
+            <Menu.Item key="1" icon={<ProfileOutlined />} onClick={() => router.push(routes.profile)}>
                 Profile
             </Menu.Item>
             <Menu.Item key="2" icon={<CloudUploadOutlined />} onClick={() => router.push(routes.historyUpload)}>
@@ -28,7 +28,7 @@ export default function UserMenu() {
             <Menu.Item key="3" icon={<LikeOutlined />}>
                 Tài liệu yêu thích
             </Menu.Item>
-            <Menu.Item key="4" icon={<CloudDownloadOutlined />}>
+            <Menu.Item key="4" icon={<CloudDownloadOutlined />} onClick={() => router.push(routes.historyDownload)}>
                 Tài liệu đã tải xuống
             </Menu.Item>
             <Menu.Divider />

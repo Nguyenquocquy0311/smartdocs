@@ -5,11 +5,11 @@ import Header from "@/components/composite/header/Header";
 import { routes } from "@/constant/routes";
 import { Breadcrumb, message } from "antd";
 import { FileTextOutlined, HomeOutlined, LikeOutlined, LoadingOutlined } from "@ant-design/icons";
-import { getUploadedDocument } from "@/services/editorDocument";
+import { getDownloadedDocument, getUploadedDocument } from "@/services/editorDocument";
 import { Document } from "@/types/Document";
 import Auth from '@/context/AuthContext';
 
-export default function DocumentsUploadedPage() {
+export default function DocumentsDownloadedPage() {
   const [documentsData, setDocumentsData] = useState<Document[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { userInfo } = Auth.useContainer()
@@ -18,7 +18,7 @@ export default function DocumentsUploadedPage() {
     const fetchDocuments = async () => {
       try {
         if (userInfo) {
-          const documents = await getUploadedDocument(userInfo.uid);
+          const documents = await getDownloadedDocument(userInfo.uid);
           setDocumentsData(documents);
           setLoading(false);
         }

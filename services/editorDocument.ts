@@ -30,9 +30,9 @@ export const getApprovedDocument = async (): Promise<Document[]> => {
   }
 };
 
-export const getDocumentWithCategory = async (category: string): Promise<Document[]> => {
+export const getDocumentWithCategory = async (category: string, currentDocId: string): Promise<Document[]> => {
   try {
-    const response = await fetch(`${API_URL}/category?category=${category}`, {
+    const response = await fetch(`${API_URL}/category?category=${category}&currentDocId=${currentDocId}`, {
       method: 'GET',
     });
 
@@ -86,5 +86,19 @@ export const downloadDocument = async (documentId: string) => {
     }
   } catch (error) {
     throw new Error('Lỗi hệ thống khi tải tài liệu.');
+  }
+};
+
+export const getDownloadedDocument = async (firebase_uid: string): Promise<Document[]> => {
+  try {
+    const response = await fetch(`${API_URL}/get-downloaded-user?firebase_uid=${firebase_uid}`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error('Error fetching docs:', error);
+    throw error;
   }
 };

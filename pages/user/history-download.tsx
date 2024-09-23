@@ -1,14 +1,14 @@
 import Layout from "@/components/Layout";
-import DocumentsUploadedPage from "@/components/page/documents/DocumentsUploadedPage";
+import DocumentsDownloadedPage from "@/components/page/documents/DocumentsDownloadedPage";
 
 const Page = () => {
   return (
     <Layout
     meta={{
-      title: 'SmartDocs | Tài liệu đã tải lên',
+      title: 'SmartDocs | Tài liệu đã tải xuống',
       description: 'Description',
      }}>
-      <DocumentsUploadedPage />
+      <DocumentsDownloadedPage />
     </Layout>
   )
 }

@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
 interface IFeedback extends Document {
-  author: Types.ObjectId;
+  author: string;
   document: Types.ObjectId;
   rating: number;
   comment: string;
@@ -10,7 +10,7 @@ interface IFeedback extends Document {
 
 const FeedbackSchema: Schema = new Schema(
   {
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    author: { type: String, ref: 'User', required: true },
     document: { type: Schema.Types.ObjectId, ref: 'Document', required: true },
     rating: { type: Number, required: true },
     comment: { type: String },

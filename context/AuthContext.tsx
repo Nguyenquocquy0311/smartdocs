@@ -29,9 +29,8 @@ function useAuth() {
     try {
       const res = await signInWithPopup(authentication, provider);
       if (res && res.user) {
-        // Lưu thông tin user vào localStorage
         localStorage.setItem('user-info', JSON.stringify(res.user));
-        setUserInfo(res.user);  // Cập nhật state userInfo
+        setUserInfo(res.user); 
       }
       setIsLoadingGoogleLogin(false);
       return res;

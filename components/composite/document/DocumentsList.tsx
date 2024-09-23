@@ -52,7 +52,6 @@ const DocumentsList: React.FC<DocumentProps> = ({documentsData}) => {
     fetchCategories();
     fetchTags();
   }, []);
-  
 
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value);
@@ -155,7 +154,6 @@ const DocumentsList: React.FC<DocumentProps> = ({documentsData}) => {
         />
       </div>
 
-      {/* Danh sách tài liệu */}
       <List
         itemLayout="vertical"
         size="large"
@@ -180,7 +178,7 @@ const DocumentsList: React.FC<DocumentProps> = ({documentsData}) => {
             </div>
             <List.Item.Meta
               title={<a>{item.title}</a>}
-              description={`Ngày đăng: ${new Date(item.createdAt).toLocaleDateString()} | Lượt xem: ${item.view} | Lượt tải: ${item.downloadCount}`}
+              description={`Ngày đăng: ${new Date(item.createdAt).toLocaleDateString()} | Lượt xem: ${item.views} | Lượt tải: ${item.downloadCount}`}
             />
             <p>{item.description}</p>
             <Button type='primary' shape='round' onClick={() => handleDocumentClick(item)} className='my-4'>Xem chi tiết</Button>

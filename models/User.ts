@@ -1,17 +1,16 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-// export interface IUser extends Document {
-//   firebase_uid: string;
-//   email: string;
-//   password: string;
-//   full_name: string;
-//   registry_date: Date;
-//   role: string;
-//   profile_picture: string;
-//   gender: string;
-//   points: number;
-//   is_verified: boolean;
-// }
+export interface IUser extends Document {
+  firebase_uid: string;
+  email: string;
+  password: string;
+  full_name: string;
+  registry_date: Date;
+  role: string;
+  profile_picture: string;
+  gender: string;
+  points: number;
+}
 
 const UserSchema: Schema = new Schema({
   firebase_uid: { type: String, required: true, unique: true },
@@ -25,6 +24,6 @@ const UserSchema: Schema = new Schema({
   points: { type: Number, default: 0 },
 });
 
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const User = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 
 export default User;

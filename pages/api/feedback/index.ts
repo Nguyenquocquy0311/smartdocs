@@ -5,29 +5,13 @@ import Feedback from '@/models/Feedback';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await dbConnect();
 
-  if (req.method === 'POST') {
+  if (req.method === 'GET') {
     try {
-        const { userId } = req;
-        const { author, document, rating, comment } = req.body;
+      const feedbacks = await Feedback.find({});
 
-        if (!userId || !document || !rating) {
-        return res.status(400).json({ message: 'Author, document, and rating are required.' });
-      }
-
-      try {
-        const newFeedback = new Feedback({
-          author: userId,
-          document,
-          rating,
-          comment,
-          feedback_date: new Date(),
-        });
-
-        await newFeedback.save();
-
-        return res.status(200).json({ message: 'Đã thêm bình luận', data: newFeedback });
+      return res.status(200).json({ message: 'Lấy dữ liệu thành công', data: feedbacks });
     } catch (e) {
-      return res.status(500).json({ message: 'Lỗi khi thêm tag', error: e });
+      return res.status(500).json({ message: 'Lỗi khi lấy dữ liệu', error: e });
     }
   } else {
     return res.status(405).json({ message: 'Method Not Allowed' });

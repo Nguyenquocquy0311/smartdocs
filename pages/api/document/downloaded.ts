@@ -19,11 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Không đủ điểm để tải tài liệu.' });
     }
 
-    // Trừ điểm của người dùng
     user.points -= pointsToRedeem;
     await user.save();
 
-    // Kiểm tra tài liệu
     const document = await Document.findById(documentId);
     if (!document) {
       return res.status(404).json({ error: 'Tài liệu không tồn tại.' });
@@ -37,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await newDownload.save();
 
-    res.status(200).json({ message: 'Điểm đã được trừ và tài liệu đã được tải xuống.', data: newDownload, userCurrentPoints: user.points});
+    res.status(200).json({ message: 'Điểm đã được trừ và tài liệu đã được tải xuống.', data: newDownload, userCurrentPoints: user.points });
   } catch (error) {
     res.status(500).json({ error: 'Lỗi hệ thống.' });
   }

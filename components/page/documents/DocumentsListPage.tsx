@@ -4,7 +4,7 @@ import DocumentsList from "@/components/composite/document/DocumentsList";
 import Header from "@/components/composite/header/Header";
 import { routes } from "@/constant/routes";
 import { Breadcrumb, message } from "antd";
-import { FileTextOutlined, HomeOutlined } from "@ant-design/icons";
+import { FileTextOutlined, HomeOutlined, LoadingOutlined } from "@ant-design/icons";
 import { getApprovedDocument } from "@/services/editorDocument";
 import { Document } from "@/types/Document";
 
@@ -52,7 +52,7 @@ export default function DocumentsListPage() {
           },
         ]}
       />
-      <DocumentsList documentsData={documentsData} />
+      {loading ? <div className='flex justify-center items-center min-h-[50vh]'><LoadingOutlined /></div> : <DocumentsList documentsData={documentsData}/>}
       <Footer />
     </>
   );

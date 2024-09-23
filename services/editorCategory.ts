@@ -1,7 +1,4 @@
-export interface Category {
-  _id?: string;
-  name: string;
-}
+import { Category } from "@/types/Category";
 
 const API_URL = '/api/categories';
 

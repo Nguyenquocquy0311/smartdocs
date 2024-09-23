@@ -2,9 +2,9 @@ import { Feedback } from "@/types/Feedback";
 
 const API_URL = '/api/feedback';
 
-export const getFeedbacks = async (): Promise<Feedback[]> => {
+export const getFeedbacksWithDocs = async (document: string): Promise<Feedback[]> => {
   try {
-    const response = await fetch(`${API_URL}/get-with-docs`, {
+    const response = await fetch(`${API_URL}/get-with-docs?documentId=${document}`, {
       method: 'GET',
     });
 
@@ -20,9 +20,9 @@ export const getFeedbacks = async (): Promise<Feedback[]> => {
   }
 };
 
-export const addFeedback = async (author : string, document: string, rating: number, comment: string): Promise<Feedback> => {
+export const addFeedback = async (author: string, document: string, rating: number, comment: string): Promise<Feedback> => {
   try {
-    const response = await fetch(`${API_URL}`, {
+    const response = await fetch(`${API_URL}/post`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

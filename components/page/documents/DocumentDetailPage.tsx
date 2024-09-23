@@ -1,6 +1,5 @@
 import Footer from "@/components/common/Footer";
 import DocumentDetail from "@/components/composite/document/DocumentDetail";
-import Feedback from "@/components/composite/Feedback";
 import Header from "@/components/composite/header/Header";
 import { routes } from "@/constant/routes";
 import { useDocument } from "@/context/DocumentContext";
@@ -11,6 +10,9 @@ import { FileSearchOutlined, FileTextOutlined, HomeOutlined } from "@ant-design/
 import DocumentsList from "@/components/composite/document/DocumentsList";
 import { getDocumentWithCategory } from "@/services/editorDocument";
 import Auth from "@/context/AuthContext";
+import FeedbackComponent from "@/components/composite/Feedback";
+import { Document } from '@/types/Document';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function DocumentDetailPage() {
     const { selectedDocument } = useDocument();
@@ -30,8 +32,7 @@ export default function DocumentDetailPage() {
         const fetchDocuments = async () => {
         try {
             if (selectedDocument) {
-                const documents = await getDocumentWithCategory(selectedDocument?.category);
-                console.log(selectedDocument?.category)
+                const documents = await getDocumentWithCategory(selectedDocument.category, selectedDocument._id);
                 setDocumentsData(documents);
                 setLoading(false);
             }
@@ -84,10 +85,12 @@ export default function DocumentDetailPage() {
                 ]}
             />
                 <DocumentDetail selectedDocument={selectedDocument} userId={userInfo?.uid}/>
-                <Feedback />
-                <div className="mt-6 border-t-2">
-                    <h2 className="mt-6 mb-4">Tài liệu liên quan</h2>
-                    <DocumentsList documentsData={documentsData}/>
+                <div className="grid grid-flow-col space-x-16 mt-6 border-t-2">
+                    <FeedbackComponent document={selectedDocument._id} />
+                    <div className="">
+                        <h2 className="mt-6 mb-4 text-xl font-bold">Tài liệu liên quan</h2>
+                        {loading ? <div className='flex justify-center items-center min-h-[50vh]'><LoadingOutlined /></div> : <DocumentsList documentsData={documentsData}/>}
+                    </div>
                 </div>
             </div>
 
